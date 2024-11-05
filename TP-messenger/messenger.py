@@ -27,6 +27,9 @@ def users(serv):
     for k in range(p):
         print(serv['users'][k]['id'],serv['users'][k]['name']) 
     print('')
+    print('u. new user')
+    print('m. Main menu')
+    print('')
 
 def channels(serv):
     print('Channels list')
@@ -40,6 +43,15 @@ def channels(serv):
 def newu(serv):
     nom = input('nom :')
     serv['users'].append({'id' : len(serv['users']) + 1, 'name' : nom})
+    menu()
+
+def menu():
+    print('=== Messenger ===')
+    print('')
+    print('1. See users')
+    print('2. See channels')  
+    print('x. Leave')
+    print('')
 
 print('=== Messenger ===')
 print('')
@@ -47,7 +59,8 @@ print('1. See users')
 print('2. See channels')  
 print('x. Leave')
 print('')
-print('u. new user')
+
+
 
 choice = ''
 while choice != 'x':
@@ -58,8 +71,13 @@ while choice != 'x':
         channels(server)
     elif choice == '1':
         users(server)
-    elif choice == 'u':
-        newu(server)
+        choice2 = input('Select an option : ')
+        if choice2 == 'u':
+            newu(server)
+        elif choice2 == 'm':
+            menu()
+        else:
+            print('Unknown option:', choice2)
     else:
         print('Unknown option:', choice)
 
