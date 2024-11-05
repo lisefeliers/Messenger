@@ -53,15 +53,8 @@ def menu():
     print('x. Leave')
     print('')
 
-print('=== Messenger ===')
-print('')
-print('1. See users')
-print('2. See channels')  
-print('x. Leave')
-print('')
 
-
-
+menu()
 choice = ''
 while choice != 'x':
     choice = input('Select an option: ')
