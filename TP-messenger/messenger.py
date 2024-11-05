@@ -37,12 +37,17 @@ def channels(serv):
         print(server['channels'][k]['id'], server['channels'][k]['name']) 
     print('')
 
+def newu(serv):
+    nom = input('nom :')
+    serv['users'].append({'id' : len(serv['users']) + 1, 'name' : nom})
+
 print('=== Messenger ===')
 print('')
 print('1. See users')
 print('2. See channels')  
 print('x. Leave')
 print('')
+print('u. new user')
 
 choice = ''
 while choice != 'x':
@@ -53,6 +58,8 @@ while choice != 'x':
         channels(server)
     elif choice == '1':
         users(server)
+    elif choice == 'u':
+        newu(server)
     else:
         print('Unknown option:', choice)
 
