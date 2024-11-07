@@ -40,10 +40,6 @@ def channels(serv):
         print(server['channels'][k]['id'], server['channels'][k]['name']) 
     print('')
 
-def newu(serv):
-    nom = input('nom :')
-    serv['users'].append({'id' : len(serv['users']) + 1, 'name' : nom})
-    menu()
 
 def menu():
     print('=== Messenger ===')
@@ -60,8 +56,10 @@ while choice != 'x':
     choice = input('Select an option: ')
     if choice == 'x':
         print('Bye!')
+
     elif choice == '2':
         channels(server)
+
     elif choice == '1':
         users(server)
         choice2 = input('Select an option : ')
@@ -71,6 +69,7 @@ while choice != 'x':
             menu()
         else:
             print('Unknown option:', choice2)
+
     else:
         print('Unknown option:', choice)
 
