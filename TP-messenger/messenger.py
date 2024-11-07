@@ -39,12 +39,28 @@ def channels(serv):
     for k in range(n):
         print(server['channels'][k]['id'], server['channels'][k]['name']) 
     print('')
+    print('c. create channel')
+    print('m. Main menu')
+    print('')
 
 def newu(serv):
     nom = input('nom :')
-    serv['users'].append({'id' : max(serv['users']) + 1, 'name' : nom})
+    serv['users'].append({'id' : len(serv['users']) + 1, 'name' : nom})
     menu()
 
+def newc(serv):
+    nom = input('nom du groupe :')
+    chan = {'id' : len(serv['channels']) + 1, 'name' : nom, 'member_ids' : []}
+
+    membres = input('nouveaux membres :')
+    groupe = [user.strip() for user in membres.split()]
+
+    for user in serv['users']:
+        if user['name'] in groupe :
+            chan['member_ids'].append(user['id'])
+    
+    serv['channels'].append(chan)
+    menu()
 
 def menu():
     print('=== Messenger ===')
@@ -64,6 +80,14 @@ while choice != 'x':
 
     elif choice == '2':
         channels(server)
+        choice2 = input('Select an option : ')
+        if choice2 == 'c':
+            newc(server)
+        elif choice2 == 'm':
+            menu()
+        else:
+            print('Unknown option:', choice2)
+            menu()
 
     elif choice == '1':
         users(server)
@@ -74,9 +98,11 @@ while choice != 'x':
             menu()
         else:
             print('Unknown option:', choice2)
+            menu()
 
     else:
         print('Unknown option:', choice)
+        menu()
 
 
 
