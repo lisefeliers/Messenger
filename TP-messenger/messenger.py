@@ -50,7 +50,7 @@ def channels(serv):
 
 def save(serv):
     with open('serverdata.json', 'w') as file:
-        json.dump(server, file)
+        json.dump(server, file, indent = 4)
 
 
 def newu(serv):
@@ -72,7 +72,7 @@ def newc(serv):
             chan['member_ids'].append(user['id'])
     
     serv['channels'].append(chan)
-    
+
     save(serv)
     menu()
 
