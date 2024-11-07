@@ -1,23 +1,28 @@
 from datetime import datetime
+import json
 
-server = {
-    'users': [
-        {'id': 1, 'name': 'Alice'},
-        {'id': 2, 'name': 'Bob'}
-    ],
-    'channels': [
-        {'id': 1, 'name': 'Town square', 'member_ids': [1, 2]}
-    ],
-    'messages': [
-        {
-            'id': 1,
-            'reception_date': datetime.now(),
-            'sender_id': 1,
-            'channel': 1,
-            'content': 'Hi 👋'
-        }
-    ]
-}
+with open('serverdata.json') as file:
+    server = json.load(file)
+
+
+# server = {
+#     'users': [
+#         {'id': 1, 'name': 'Alice'},
+#         {'id': 2, 'name': 'Bob'}
+#     ],
+#     'channels': [
+#         {'id': 1, 'name': 'Town square', 'member_ids': [1, 2]}
+#     ],
+#     'messages': [
+#         {
+#             'id': 1,
+#             'reception_date': datetime.now(),
+#             'sender_id': 1,
+#             'channel': 1,
+#             'content': 'Hi 👋'
+#         }
+#     ]
+# }
 
 def users(serv):
     print('User list')
