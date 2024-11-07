@@ -40,6 +40,11 @@ def channels(serv):
         print(server['channels'][k]['id'], server['channels'][k]['name']) 
     print('')
 
+def newu(serv):
+    nom = input('nom :')
+    serv['users'].append({'id' : max(serv['users']) + 1, 'name' : nom})
+    menu()
+
 
 def menu():
     print('=== Messenger ===')
