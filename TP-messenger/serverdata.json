@@ -1,10 +1,27 @@
 {
     "users": [
-        {"id": 1, "name": "Alice"},
-        {"id": 2, "name": "Bob"}
+        {
+            "id": 1,
+            "name": "Alice"
+        },
+        {
+            "id": 2,
+            "name": "Bob"
+        },
+        {
+            "id": 3,
+            "name": "John"
+        }
     ],
     "channels": [
-        {"id": 1, "name": "Town square", "member_ids": [1, 2]}
+        {
+            "id": 1,
+            "name": "Town square",
+            "member_ids": [
+                1,
+                2
+            ]
+        }
     ],
     "messages": [
         {
@@ -12,7 +29,7 @@
             "reception_date": "2024-11-07",
             "sender_id": 1,
             "channel": 1,
-            "content": "Hi 👋"
+            "content": "Hi \u00f0\u0178\u2018\u2039"
         }
     ]
 }
