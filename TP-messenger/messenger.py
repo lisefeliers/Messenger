@@ -48,9 +48,16 @@ def channels(serv):
     print('m. Main menu')
     print('')
 
+def save(serv):
+    with open('serverdata.json', 'w') as file:
+        json.dump(server, file)
+
+
 def newu(serv):
     nom = input('nom :')
     serv['users'].append({'id' : len(serv['users']) + 1, 'name' : nom})
+
+    save(serv)
     menu()
 
 def newc(serv):
@@ -65,6 +72,8 @@ def newc(serv):
             chan['member_ids'].append(user['id'])
     
     serv['channels'].append(chan)
+    
+    save(serv)
     menu()
 
 def menu():
