@@ -63,7 +63,7 @@ def newc(serv):
     chan = {'id' : len(serv['channels']) + 1, 'name' : nom, 'member_ids' : []}
 
     membres = input('nouveaux membres :')
-    groupe = [user.strip() for user in membres.split()]
+    groupe = [user.strip() for user in membres.split(',')]
 
     for user in serv['users']:
         if user['name'] in groupe :
