@@ -35,6 +35,15 @@ def users(serv):
     print('m. Main menu')
     print('')
 
+    choice = input('Select an option : ')
+    if choice == 'u':
+        newu(server)
+    elif choice == 'm':
+        menu()
+    else:
+        print('Unknown option:', choice)
+        menu()
+
 def channels(serv):
     print('Channels list')
     print('-------------')
@@ -45,6 +54,15 @@ def channels(serv):
     print('c. create channel')
     print('m. Main menu')
     print('')
+
+    choice = input('Select an option : ')
+    if choice == 'c':
+        newc(server)
+    elif choice == 'm':
+        menu()
+    else:
+        print('Unknown option:', choice)
+        menu()
 
 def save(serv):
     with open('serverdata.json', 'w') as file:
@@ -82,39 +100,16 @@ def menu():
     print('x. Leave')
     print('')
 
-
-menu()
-choice = ''
-while choice != 'x':
     choice = input('Select an option: ')
     if choice == 'x':
         print('Bye!')
-
-    elif choice == '2':
-        channels(server)
-        choice2 = input('Select an option : ')
-        if choice2 == 'c':
-            newc(server)
-        elif choice2 == 'm':
-            menu()
-        else:
-            print('Unknown option:', choice2)
-            menu()
-
+        return
     elif choice == '1':
-        users(server)
-        choice2 = input('Select an option : ')
-        if choice2 == 'u':
-            newu(server)
-        elif choice2 == 'm':
-            menu()
-        else:
-            print('Unknown option:', choice2)
-            menu()
-
+        return users(server)
+    elif choice == '2':
+        return channels(server)
     else:
         print('Unknown option:', choice)
-        menu()
+        return menu()
 
-
-
+menu()
