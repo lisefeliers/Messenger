@@ -40,9 +40,9 @@ def channels(serv):
     print('Channels list')
     print('-------------')
     print('')
-    n = len(server['channels'])
+    n = len(serv['channels'])
     for k in range(n):
-        print(server['channels'][k]['id'], server['channels'][k]['name']) 
+        print(serv['channels'][k]['id'], serv['channels'][k]['name'])
     print('')
     print('c. create channel')
     print('m. Main menu')
@@ -50,7 +50,7 @@ def channels(serv):
 
 def save(serv):
     with open('serverdata.json', 'w') as file:
-        json.dump(server, file, indent = 4)
+        json.dump(serv, file, indent = 4)
 
 
 def newu(serv):
