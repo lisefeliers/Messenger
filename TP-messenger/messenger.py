@@ -28,9 +28,8 @@ def users(serv):
     print('User list')
     print('---------')
     print('')
-    p = len(serv['users'])
-    for k in range(p):
-        print(serv['users'][k]['id'],serv['users'][k]['name']) 
+    for user in serv['users']:
+        print(user['id'], user['name'])
     print('')
     print('u. new user')
     print('m. Main menu')
@@ -40,9 +39,8 @@ def channels(serv):
     print('Channels list')
     print('-------------')
     print('')
-    n = len(serv['channels'])
-    for k in range(n):
-        print(serv['channels'][k]['id'], serv['channels'][k]['name'])
+    for channel in serv['channels']:
+        print(channel['id'], channel['name'])
     print('')
     print('c. create channel')
     print('m. Main menu')
