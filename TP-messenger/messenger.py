@@ -14,7 +14,9 @@ def users(serv):
     print('')
 
     for user in serv['users']:
-        print(user['id'], user['name'])
+        id = user['id']
+        name = user['name']
+        print(f'{id}. {name}')
 
     print('')
     print('u. new user')
@@ -36,7 +38,9 @@ def channels(serv):
     print('')
 
     for channel in serv['channels']:
-        print(channel['id'], channel['name'])
+        id = channel['id']
+        name = channel['name']
+        print(f'{id}. {name}')
 
     print('')
     print('c. create channel')
@@ -65,10 +69,10 @@ def newu(serv):
     menu()
 
 def newc(serv):
-    nom = input('nom du groupe :')
+    nom = input('Group name :')
     chan = {'id' : len(serv['channels']) + 1, 'name' : nom, 'member_ids' : []}
 
-    membres = input('nouveaux membres :')
+    membres = input('new members :')
     groupe = [user.strip() for user in membres.split(',')]
 
     for user in serv['users']:
