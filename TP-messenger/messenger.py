@@ -28,9 +28,10 @@ def users(serv):
     print('User list')
     print('---------')
     print('')
-    p = len(serv['users'])
-    for k in range(p):
-        print(serv['users'][k]['id'],serv['users'][k]['name']) 
+    
+    for user in serv['users']:
+        print(user['id'], user['name']) 
+
     print('')
     print('u. new user')
     print('m. Main menu')
@@ -40,9 +41,10 @@ def channels(serv):
     print('Channels list')
     print('-------------')
     print('')
-    n = len(server['channels'])
-    for k in range(n):
-        print(server['channels'][k]['id'], server['channels'][k]['name']) 
+    
+    for chan in serv['channels']:
+        print(chan['id'], chan['name']) 
+        
     print('')
     print('c. create channel')
     print('m. Main menu')
@@ -50,7 +52,7 @@ def channels(serv):
 
 def save(serv):
     with open('serverdata.json', 'w') as file:
-        json.dump(server, file, indent = 4)
+        json.dump(serv, file, indent = 4)
 
 
 def newu(serv):
