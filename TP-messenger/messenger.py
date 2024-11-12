@@ -1,12 +1,35 @@
 from datetime import datetime
 import json
 
+
+class User:
+    def __init__(self, id: int, name: str):
+        self.id = id
+        self.name = name
+
+class Channel:
+    def __init__(self, id, name, members):
+        self.id = id
+        self.name = name
+        self.members = members
+        
+class Messages:
+    def __init__(self, id, date, sender_id, channel, content):
+        self.id = id
+        self.date = date
+        self.sender_id = sender_id
+        self.channel = channel
+        self.content = content
+    
+
 def serverdata(fichier):
     with open(fichier) as file:
         server = json.load(file)
-        return server
+
+    return server
 
 server = serverdata('serverdata.json')
+
 
 def users(serv):
     print('User list')
@@ -56,6 +79,7 @@ def channels(serv):
         print('Unknown option:', choice)
         menu()
 
+
 def save(serv):
     with open('serverdata.json', 'w') as file:
         json.dump(serv, file, indent = 4)
@@ -83,6 +107,7 @@ def newc(serv):
 
     save(serv)
     menu()
+
 
 def menu():
     print('=== Messenger ===')
