@@ -1,54 +1,56 @@
 from datetime import datetime
 import json
 
-with open('serverdata.json') as file:
-    server = json.load(file)
+def serverdata(fichier):
+    with open(fichier) as file:
+        server = json.load(file)
+        return server
 
-
-# server = {
-#     'users': [
-#         {'id': 1, 'name': 'Alice'},
-#         {'id': 2, 'name': 'Bob'}
-#     ],
-#     'channels': [
-#         {'id': 1, 'name': 'Town square', 'member_ids': [1, 2]}
-#     ],
-#     'messages': [
-#         {
-#             'id': 1,
-#             'reception_date': datetime.now(),
-#             'sender_id': 1,
-#             'channel': 1,
-#             'content': 'Hi 👋'
-#         }
-#     ]
-# }
+server = serverdata('serverdata.json')
 
 def users(serv):
     print('User list')
     print('---------')
     print('')
-    
+
     for user in serv['users']:
-        print(user['id'], user['name']) 
+        print(user['id'], user['name'])
 
     print('')
     print('u. new user')
     print('m. Main menu')
     print('')
 
+    choice = input('Select an option : ')
+    if choice == 'u':
+        newu(server)
+    elif choice == 'm':
+        menu()
+    else:
+        print('Unknown option:', choice)
+        menu()
+
 def channels(serv):
     print('Channels list')
     print('-------------')
     print('')
-    
-    for chan in serv['channels']:
-        print(chan['id'], chan['name']) 
-        
+
+    for channel in serv['channels']:
+        print(channel['id'], channel['name'])
+
     print('')
     print('c. create channel')
     print('m. Main menu')
     print('')
+
+    choice = input('Select an option : ')
+    if choice == 'c':
+        newc(server)
+    elif choice == 'm':
+        menu()
+    else:
+        print('Unknown option:', choice)
+        menu()
 
 def save(serv):
     with open('serverdata.json', 'w') as file:
@@ -67,7 +69,7 @@ def newc(serv):
     chan = {'id' : len(serv['channels']) + 1, 'name' : nom, 'member_ids' : []}
 
     membres = input('nouveaux membres :')
-    groupe = [user.strip() for user in membres.split()]
+    groupe = [user.strip() for user in membres.split(',')]
 
     for user in serv['users']:
         if user['name'] in groupe :
@@ -86,39 +88,16 @@ def menu():
     print('x. Leave')
     print('')
 
-
-menu()
-choice = ''
-while choice != 'x':
     choice = input('Select an option: ')
     if choice == 'x':
         print('Bye!')
-
-    elif choice == '2':
-        channels(server)
-        choice2 = input('Select an option : ')
-        if choice2 == 'c':
-            newc(server)
-        elif choice2 == 'm':
-            menu()
-        else:
-            print('Unknown option:', choice2)
-            menu()
-
+        return
     elif choice == '1':
-        users(server)
-        choice2 = input('Select an option : ')
-        if choice2 == 'u':
-            newu(server)
-        elif choice2 == 'm':
-            menu()
-        else:
-            print('Unknown option:', choice2)
-            menu()
-
+        return users(server)
+    elif choice == '2':
+        return channels(server)
     else:
         print('Unknown option:', choice)
-        menu()
+        return menu()
 
-
-
+menu()
