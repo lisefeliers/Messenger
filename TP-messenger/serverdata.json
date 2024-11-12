@@ -29,6 +29,14 @@
                 1,
                 2
             ]
+        },
+        {
+            "id": 2,
+            "name": "Grr",
+            "member_ids": [
+                4,
+                5
+            ]
         }
     ],
     "messages": [
