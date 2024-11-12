@@ -21,25 +21,41 @@ class Messages:
         self.channel = channel
         self.content = content
     
+class Server:
+    def __init__(self, users, channels, messages):
+        self.users = users
+        self.channels = channels
+        self.messages = messages
+
 
 def serverdata(fichier):
     with open(fichier) as file:
-        server = json.load(file)
+        server_dico = json.load(file)
+    
+    server = Server([], [], [])
 
+    for user in server_dico['users']: 
+        server.users.append(User(user['id'], user['name'])) 
+    
+    for channel in server_dico['channels']:
+        server.channels.append(Channel(channel['id'], channel['name'], channel['member_ids']))
+    
+    for mess in server_dico['messages']:
+        server.messages.append(Messages(mess['id'], mess['reception_date'], mess['sender_id'], 
+                        mess['channel'], mess['content']))
+        
     return server
 
 server = serverdata('serverdata.json')
 
 
-def users(serv):
+def users(serv: Server):
     print('User list')
     print('---------')
     print('')
 
-    for user in serv['users']:
-        id = user['id']
-        name = user['name']
-        print(f'{id}. {name}')
+    for user in serv.users:
+        print(f'{user.id}. {user.name}')
 
     print('')
     print('u. new user')
@@ -60,9 +76,9 @@ def channels(serv):
     print('-------------')
     print('')
 
-    for channel in serv['channels']:
-        id = channel['id']
-        name = channel['name']
+    for channel in serv.channels:
+        id = channel.id
+        name = channel.name
         print(f'{id}. {name}')
 
     print('')
@@ -85,25 +101,25 @@ def save(serv):
         json.dump(serv, file, indent = 4)
 
 
-def newu(serv):
+def newu(serv: Server):
     nom = input('Nom :')
-    serv['users'].append({'id' : len(serv['users']) + 1, 'name' : nom})
+    serv.users.append(User(len(serv.users) + 1, nom))
 
     save(serv)
     menu()
 
-def newc(serv):
+def newc(serv: Server):
     nom = input('Group name :')
-    chan = {'id' : len(serv['channels']) + 1, 'name' : nom, 'member_ids' : []}
+    chan = Channel(len(serv.channels) + 1, nom, [])
 
     membres = input('New members :')
     groupe = [user.strip() for user in membres.split(',')]
 
-    for user in serv['users']:
-        if user['name'] in groupe :
-            chan['member_ids'].append(user['id'])
+    for user in serv.users:
+        if user.name in groupe :
+            chan.members.append(user.id)
     
-    serv['channels'].append(chan)
+    serv.channels.append(chan)
 
     save(serv)
     menu()
