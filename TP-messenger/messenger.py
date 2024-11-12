@@ -43,7 +43,7 @@ def channels(serv):
         print(f'{id}. {name}')
 
     print('')
-    print('c. create channel')
+    print('c. Create channel')
     print('m. Main menu')
     print('')
 
@@ -62,7 +62,7 @@ def save(serv):
 
 
 def newu(serv):
-    nom = input('nom :')
+    nom = input('Nom :')
     serv['users'].append({'id' : len(serv['users']) + 1, 'name' : nom})
 
     save(serv)
@@ -72,7 +72,7 @@ def newc(serv):
     nom = input('Group name :')
     chan = {'id' : len(serv['channels']) + 1, 'name' : nom, 'member_ids' : []}
 
-    membres = input('new members :')
+    membres = input('New members :')
     groupe = [user.strip() for user in membres.split(',')]
 
     for user in serv['users']:
