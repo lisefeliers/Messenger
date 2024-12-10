@@ -60,6 +60,22 @@ def serverdata(fichier):
 
 server = serverdata('serverdata.json')
 
+def class_to_dict(serv: Server):
+    server = {'users': [], 'channels': [], 'messages': []}
+
+    for user in serv.users: 
+        server['users'].append({'id': user.id, 'name': user.name})
+    
+    for channel in serv.channels:
+        server['channels'].append({'id': channel.id, 'name': channel.name,'member_ids': channel.members})
+
+    for message in serv.messages:
+        server['messages'].append({'id': message.id,'reception_date': message.date,'sender_id': message.sender_id,
+            'channel': message.channel,'content': message.content})
+    
+    return server
+
+
 
 def users(serv: Server):
     print('User list')
@@ -100,7 +116,7 @@ def channels(serv: Server):
 
     choice = input('Select an option : ')
     if choice == 'c':
-        newc(server)
+        newc(serv)
     elif choice == 'm':
         menu()
     else:
@@ -108,9 +124,9 @@ def channels(serv: Server):
         menu()
 
 
-def save(serv):
+def save(serv: Server):
     with open('serverdata.json', 'w') as file:
-        json.dump(serv, file, indent = 4)
+        json.dump(class_to_dict(serv), file, indent = 4)
 
 
 def newu(serv: Server):
