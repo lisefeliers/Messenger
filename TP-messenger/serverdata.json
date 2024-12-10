@@ -31,6 +31,10 @@
         {
             "id": 8,
             "name": "Emile"
+        },
+        {
+            "id": 9,
+            "name": "Sarah"
         }
     ],
     "channels": [
@@ -56,6 +60,14 @@
             "member_ids": [
                 4,
                 5,
+                6,
+                7
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Boyyyyys",
+            "member_ids": [
                 6,
                 7
             ]
