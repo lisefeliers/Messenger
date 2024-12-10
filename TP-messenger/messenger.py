@@ -7,11 +7,17 @@ class User:
         self.id = id
         self.name = name
 
+    def __repr__(self):
+        return f'({self.id}, {self.name})'
+
 class Channel:
     def __init__(self, id, name, members):
         self.id = id
         self.name = name
         self.members = members
+    
+    def __repr__(self):
+        return f'({self.id}, {self.name}, {self.members})'
         
 class Messages:
     def __init__(self, id, date, sender_id, channel, content):
@@ -20,12 +26,18 @@ class Messages:
         self.sender_id = sender_id
         self.channel = channel
         self.content = content
+
+    def __repr__(self):
+        return f'({self.id}, {self.date}, {self.sender_id}, {self.channel}, {self.content})'
     
 class Server:
-    def __init__(self, users, channels, messages):
+    def __init__(self, users: list[User], channels: list[Channel], messages: list[Messages]):
         self.users = users
         self.channels = channels
         self.messages = messages
+    
+    def __repr__(self):
+        return f'({self.users}, {self.channels}, {self.messages})'
 
 
 def serverdata(fichier):
@@ -71,7 +83,7 @@ def users(serv: Server):
         print('Unknown option:', choice)
         menu()
 
-def channels(serv):
+def channels(serv: Server):
     print('Channels list')
     print('-------------')
     print('')
