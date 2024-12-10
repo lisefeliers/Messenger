@@ -9,6 +9,7 @@ class User:
 
     def __repr__(self):
         return f'({self.id}, {self.name})'
+    
 
 class Channel:
     def __init__(self, id, name, members):
@@ -18,7 +19,8 @@ class Channel:
     
     def __repr__(self):
         return f'({self.id}, {self.name}, {self.members})'
-        
+    
+
 class Messages:
     def __init__(self, id, date, sender_id, channel, content):
         self.id = id
@@ -29,7 +31,8 @@ class Messages:
 
     def __repr__(self):
         return f'({self.id}, {self.date}, {self.sender_id}, {self.channel}, {self.content})'
-    
+
+
 class Server:
     def __init__(self, users: list[User], channels: list[Channel], messages: list[Messages]):
         self.users = users
