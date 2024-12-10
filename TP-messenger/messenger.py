@@ -41,7 +41,23 @@ class Server:
 
     def save(self):
         with open('serverdata.json', 'w') as file:
-            json.dump(class_to_dict(self), file, indent = 4)
+            json.dump(self.class_to_dict(), file, indent = 4)
+
+    def class_to_dict(self):
+        server = {'users': [], 'channels': [], 'messages': []}
+
+        for user in self.users: 
+            server['users'].append({'id': user.id, 'name': user.name})
+    
+        for channel in self.channels:
+            server['channels'].append({'id': channel.id, 'name': channel.name,'member_ids': channel.members})
+
+        for message in self.messages:
+            server['messages'].append({'id': message.id,'reception_date': message.date,'sender_id': message.sender_id,
+                'channel': message.channel,'content': message.content})
+        
+        return server
+
 
 def serverdata(fichier):
     with open(fichier) as file:
@@ -62,21 +78,6 @@ def serverdata(fichier):
     return server
 
 server = serverdata('serverdata.json')
-
-def class_to_dict(serv: Server):
-    server = {'users': [], 'channels': [], 'messages': []}
-
-    for user in serv.users: 
-        server['users'].append({'id': user.id, 'name': user.name})
-    
-    for channel in serv.channels:
-        server['channels'].append({'id': channel.id, 'name': channel.name,'member_ids': channel.members})
-
-    for message in serv.messages:
-        server['messages'].append({'id': message.id,'reception_date': message.date,'sender_id': message.sender_id,
-            'channel': message.channel,'content': message.content})
-    
-    return server
 
 
 
@@ -127,17 +128,13 @@ def channels(serv: Server):
         menu()
 
 
-# def save(serv: Server):
-#     with open('serverdata.json', 'w') as file:
-#         json.dump(class_to_dict(serv), file, indent = 4)
-
-
 def newu(serv: Server):
     nom = input('Nom :')
     serv.users.append(User(len(serv.users) + 1, nom))
 
     serv.save()
     menu()
+
 
 def newc(serv: Server):
     nom = input('Group name :')
