@@ -10,6 +10,9 @@ class User:
     def __repr__(self):
         return f'({self.id}, {self.name})'
     
+    @classmethod
+    def from_dict(cls, user_dict: dict):
+        return cls(user_dict['id'], user_dict['name'])
 
 class Channel:
     def __init__(self, id, name, members):
@@ -19,6 +22,10 @@ class Channel:
     
     def __repr__(self):
         return f'({self.id}, {self.name}, {self.members})'
+    
+    @classmethod
+    def from_dict(cls, channel_dict: dict):
+        return cls(channel_dict['id'], channel_dict['name'], channel_dict['members_id'])
     
 
 class Messages:
@@ -32,6 +39,7 @@ class Messages:
     def __repr__(self):
         return f'({self.id}, {self.date}, {self.sender_id}, {self.channel}, {self.content})'
 
+    
 
 class Server:
     def __init__(self, users: list[User], channels: list[Channel], messages: list[Messages]):
