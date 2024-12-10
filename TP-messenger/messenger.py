@@ -39,6 +39,9 @@ class Server:
     def __repr__(self):
         return f'({self.users}, {self.channels}, {self.messages})'
 
+    def save(self):
+        with open('serverdata.json', 'w') as file:
+            json.dump(class_to_dict(self), file, indent = 4)
 
 def serverdata(fichier):
     with open(fichier) as file:
@@ -124,16 +127,16 @@ def channels(serv: Server):
         menu()
 
 
-def save(serv: Server):
-    with open('serverdata.json', 'w') as file:
-        json.dump(class_to_dict(serv), file, indent = 4)
+# def save(serv: Server):
+#     with open('serverdata.json', 'w') as file:
+#         json.dump(class_to_dict(serv), file, indent = 4)
 
 
 def newu(serv: Server):
     nom = input('Nom :')
     serv.users.append(User(len(serv.users) + 1, nom))
 
-    save(serv)
+    serv.save()
     menu()
 
 def newc(serv: Server):
@@ -149,7 +152,7 @@ def newc(serv: Server):
     
     serv.channels.append(chan)
 
-    save(serv)
+    serv.save()
     menu()
 
 
