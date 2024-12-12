@@ -1,6 +1,8 @@
 from datetime import datetime
 import json
 
+print(2)
+
 
 class User:
     def __init__(self, id: int, name: str):
