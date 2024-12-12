@@ -15,7 +15,7 @@ class User:
         return cls(user_dict['id'], user_dict['name'])
 
 class Channel:
-    def __init__(self, id, name, members):
+    def __init__(self, id: int, name: str, members: list):
         self.id = id
         self.name = name
         self.members = members
@@ -29,7 +29,7 @@ class Channel:
     
 
 class Messages:
-    def __init__(self, id, date, sender_id, channel, content):
+    def __init__(self, id: int, date, sender_id: int, channel, content):
         self.id = id
         self.date = date
         self.sender_id = sender_id
@@ -138,6 +138,32 @@ def channels(serv: Server):
         print('Unknown option:', choice)
         menu()
 
+def messages(serv: Server):
+    print('Conversations')
+    print('.............')
+    print('')
+    list_id = []
+
+    print('group')
+    for channel in serv.channels:
+        id = channel.id 
+        group_name = channel.name
+        list_id.append(id)
+        print(f'{id}. {group_name}')
+    print('')
+
+    print('m. Main menu')
+    print('')
+
+    choice = input('Select an option :')
+    if choice == 'm':
+        menu()
+    elif int(choice) > max(list_id):
+        print('Unknown option:', choice)
+        menu()
+    else:
+        message_to_group(int(choice), serv)
+
 
 def newu(serv: Server):
     nom = input('Nom :')
@@ -163,12 +189,28 @@ def newc(serv: Server):
     serv.save()
     menu()
 
+def message_to_group(channel_id: int, serv: Server):
+    name = ''
+    for channel in serv.channels:
+        if channel.id == id:
+            name = channel.name
+    print(f'{name}')
+    new_message = input('New message :')
+    message_id = len(serv.messages) + 1
+    sender_id = 1
+    message = Messages(message_id, '2024-12-12', sender_id, channel_id, new_message)
+    serv.messages.append(message)
+
+    serv.save()
+    menu()
+
 
 def menu():
     print('=== Messenger ===')
     print('')
     print('1. See users')
     print('2. See channels')  
+    print('3. Send a message')
     print('x. Leave')
     print('')
 
@@ -180,6 +222,8 @@ def menu():
         return users(server)
     elif choice == '2':
         return channels(server)
+    elif choice == '3':
+        return messages(server)
     else:
         print('Unknown option:', choice)
         return menu()
