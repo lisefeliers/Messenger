@@ -10,9 +10,9 @@ class User:
     def __repr__(self):
         return f'({self.id}, {self.name})'
     
-    @classmethod
-    def from_dict(cls, user_dict: dict):
-        return cls(user_dict['id'], user_dict['name'])
+    # @classmethod
+    # def from_dict(cls, user_dict: dict):
+    #     return cls(user_dict['id'], user_dict['name'])
 
 class Channel:
     def __init__(self, id: int, name: str, members: list):
@@ -23,9 +23,9 @@ class Channel:
     def __repr__(self):
         return f'({self.id}, {self.name}, {self.members})'
     
-    @classmethod
-    def from_dict(cls, channel_dict: dict):
-        return cls(channel_dict['id'], channel_dict['name'], channel_dict['members_id'])
+    # @classmethod
+    # def from_dict(cls, channel_dict: dict):
+    #     return cls(channel_dict['id'], channel_dict['name'], channel_dict['members_id'])
     
 
 class Messages:
@@ -144,7 +144,7 @@ def messages(serv: Server):
     print('')
     list_id = []
 
-    print('group')
+    print('Groups :')
     for channel in serv.channels:
         id = channel.id 
         group_name = channel.name
@@ -210,7 +210,7 @@ def menu():
     print('')
     print('1. See users')
     print('2. See channels')  
-    print('3. Send a message')
+    print('3. Messages')
     print('x. Leave')
     print('')
 
