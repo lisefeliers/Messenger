@@ -49,7 +49,8 @@
         {
             "id": 2,
             "name": "Grr",
-            "member_ids": [1,
+            "member_ids": [
+                1,
                 4,
                 5
             ]
@@ -57,7 +58,8 @@
         {
             "id": 3,
             "name": "Cops",
-            "member_ids": [1,
+            "member_ids": [
+                1,
                 4,
                 5,
                 6,
@@ -67,7 +69,8 @@
         {
             "id": 4,
             "name": "Boyyyyys",
-            "member_ids": [1,
+            "member_ids": [
+                1,
                 6,
                 7
             ]
@@ -80,6 +83,20 @@
             "sender_id": 1,
             "channel": 1,
             "content": "Hi \u00f0\u0178\u2018\u2039"
+        },
+        {
+            "id": 2,
+            "reception_date": "2024-11-07",
+            "sender_id": 1,
+            "channel": 3,
+            "content": "Saluuuut"
+        },
+        {
+            "id": 3,
+            "reception_date": "2024-12-12",
+            "sender_id": 1,
+            "channel": 2,
+            "content": "On mange quoi?"
         }
     ]
 }
