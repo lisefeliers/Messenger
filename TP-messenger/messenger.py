@@ -150,7 +150,6 @@ def messages(serv: Server):
         group_name = channel.name
         list_id.append(id)
         print(f'{id}. {group_name}')
-    print('')
 
     print('m. Main menu')
     print('')
