@@ -6,6 +6,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--server', '-s', help = 'enter json path')
 args = parser.parse_args()
 
+print(2)
+
 
 class User:
     def __init__(self, id: int, name: str):
