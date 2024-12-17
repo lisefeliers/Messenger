@@ -125,6 +125,7 @@ def channels(serv: Server):
         print(f'{id}. {name}')
 
     print('')
+    print('a. Add a user to a group')
     print('c. Create channel')
     print('m. Main menu')
     print('')
@@ -134,6 +135,8 @@ def channels(serv: Server):
         newc(serv)
     elif choice == 'm':
         menu()
+    elif choice == 'a':
+        add_member_to_group(serv)
     else:
         print('Unknown option:', choice)
         menu()
@@ -163,6 +166,28 @@ def messages(serv: Server):
     else:
         message_to_group(int(choice), serv)
 
+def add_member_to_group(serv : Server):
+
+    print('Groups :')
+    for channel in serv.channels:
+        id_channel = channel.id 
+        group_name = channel.name
+        print(f'{id_channel}. {group_name}')
+
+    name_channel = input('Group name :')
+    name_user = input('Add :')
+    id_user = None
+
+    for user in serv.users:
+        if user.name == name_user:
+            id_user = user.id
+    
+    for channel in serv.channels:
+        if channel.name == name_channel:
+            channel.members.append(id_user)
+
+    serv.save()
+    menu()
 
 def newu(serv: Server):
     nom = input('Nom :')
