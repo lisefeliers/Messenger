@@ -125,7 +125,7 @@ def channels(serv: Server):
         print(f'{id}. {name}')
 
     print('')
-    print('a. Add a user to a group')
+    print('a. Add a member to a channel')
     print('c. Create channel')
     print('m. Main menu')
     print('')
@@ -168,13 +168,13 @@ def messages(serv: Server):
 
 def add_member_to_group(serv : Server):
 
-    print('Groups :')
+    print('Channels :')
     for channel in serv.channels:
         id_channel = channel.id 
         group_name = channel.name
         print(f'{id_channel}. {group_name}')
 
-    name_channel = input('Group name :')
+    name_channel = input('Channel name :')
     name_user = input('Add :')
     id_user = None
 
@@ -190,22 +190,22 @@ def add_member_to_group(serv : Server):
     menu()
 
 def newu(serv: Server):
-    nom = input('Nom :')
-    serv.users.append(User(len(serv.users) + 1, nom))
+    name = input('Name :')
+    serv.users.append(User(len(serv.users) + 1, name))
 
     serv.save()
     menu()
 
 
 def newc(serv: Server):
-    nom = input('Group name :')
-    chan = Channel(len(serv.channels) + 1, nom, [])
+    name = input('Channel name :')
+    chan = Channel(len(serv.channels) + 1, name, [])
 
-    membres = input('New members :')
-    groupe = [user.strip() for user in membres.split(',')]
+    members = input('New members :')
+    group = [user.strip() for user in members.split(',')]
 
     for user in serv.users:
-        if user.name in groupe :
+        if user.name in group :
             chan.members.append(user.id)
     
     serv.channels.append(chan)
