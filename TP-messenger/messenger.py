@@ -101,6 +101,79 @@ class Server:
         self.save()
         menu()
 
+    def fonction_users(self):
+        print('User list')
+        print('---------')
+        print('')
+
+        for user in self.users:
+            print(f'{user.id}. {user.name}')
+
+        print('')
+        print('u. new user')
+        print('m. Main menu')
+        print('')
+
+        choice = input('Select an option : ')
+        if choice == 'u':
+            self.newu()
+        elif choice == 'm':
+            menu()
+        else:
+            print('Unknown option:', choice)
+            menu()
+
+    def fonction_channels(self):
+        print('Channels list')
+        print('-------------')
+        print('')
+
+        for channel in self.channels:
+            id = channel.id
+            name = channel.name
+            print(f'{id}. {name}')
+
+        print('')
+        print('a. Add a member to a channel')
+        print('c. Create channel')
+        print('m. Main menu')
+        print('')
+
+        choice = input('Select an option : ')
+        if choice == 'c':
+            self.newc()
+        elif choice == 'm':
+            menu()
+        elif choice == 'a':
+            self.add_member_to_group()
+        else:
+            print('Unknown option:', choice)
+            menu()
+
+    def fonction_messages(self):
+        print('Conversations')
+        print('.............')
+        print('')
+        list_id = []
+
+        print('Groups :')
+        for channel in self.channels:
+            id = channel.id 
+            group_name = channel.name
+            list_id.append(id)
+            print(f'{id}. {group_name}')
+
+        print('m. Main menu')
+        print('')
+
+        choice = input('Select an option :')
+        if choice == 'm':
+            menu()
+        elif int(choice) > max(list_id):
+            print('Unknown option:', choice)
+            menu()
+        else:
+            message_to_group(int(choice), self)
 
     def save(self):
         with open(args.server, 'w') as file:
@@ -143,84 +216,6 @@ def serverdata(fichier):
 server = serverdata(args.server)
 
 
-
-def users(serv: Server):
-    print('User list')
-    print('---------')
-    print('')
-
-    for user in serv.users:
-        print(f'{user.id}. {user.name}')
-
-    print('')
-    print('u. new user')
-    print('m. Main menu')
-    print('')
-
-    choice = input('Select an option : ')
-    if choice == 'u':
-        serv.newu()
-    elif choice == 'm':
-        menu()
-    else:
-        print('Unknown option:', choice)
-        menu()
-
-def channels(serv: Server):
-    print('Channels list')
-    print('-------------')
-    print('')
-
-    for channel in serv.channels:
-        id = channel.id
-        name = channel.name
-        print(f'{id}. {name}')
-
-    print('')
-    print('a. Add a member to a channel')
-    print('c. Create channel')
-    print('m. Main menu')
-    print('')
-
-    choice = input('Select an option : ')
-    if choice == 'c':
-        serv.newc()
-    elif choice == 'm':
-        menu()
-    elif choice == 'a':
-        serv.add_member_to_group()
-    else:
-        print('Unknown option:', choice)
-        menu()
-
-def messages(serv: Server):
-    print('Conversations')
-    print('.............')
-    print('')
-    list_id = []
-
-    print('Groups :')
-    for channel in serv.channels:
-        id = channel.id 
-        group_name = channel.name
-        list_id.append(id)
-        print(f'{id}. {group_name}')
-
-    print('m. Main menu')
-    print('')
-
-    choice = input('Select an option :')
-    if choice == 'm':
-        menu()
-    elif int(choice) > max(list_id):
-        print('Unknown option:', choice)
-        menu()
-    else:
-        message_to_group(int(choice), serv)
-
-
-
-
 def message_to_group(channel_id: int, serv: Server):
     name = ''
     for channel in serv.channels:
@@ -251,11 +246,11 @@ def menu():
         print('Bye!')
         return
     elif choice == '1':
-        return users(server)
+        return server.fonction_users()
     elif choice == '2':
-        return channels(server)
+        return server.fonction_channels()
     elif choice == '3':
-        return messages(server)
+        return server.fonction_messages()
     else:
         print('Unknown option:', choice)
         return menu()
