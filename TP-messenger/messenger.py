@@ -1,7 +1,20 @@
 from datetime import datetime
 import json
+import argparse
 
-print(2)
+import sys
+print(sys.argv)
+server = ''
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument('-s','--server')
+args = parser.parse_args()
+print('ArgumentParser a parsé le paramètre suivant :', args.server)
+commit_message = args.server
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--server', '-s', help = 'enter json path')
+args = parser.parse_args()
 
 
 class User:
@@ -51,9 +64,56 @@ class Server:
     
     def __repr__(self):
         return f'({self.users}, {self.channels}, {self.messages})'
+    
+    def newu(self):
+        name = input('Name :')
+        self.users.append(User(len(self.users) + 1, name))
+
+        self.save()
+        menu()
+
+    def newc(self):
+        name = input('Channel name :')
+        chan = Channel(len(self.channels) + 1, name, [])
+
+        members = input('New members :')
+        group = [user.strip() for user in members.split(',')]
+
+        for user in self.users:
+            if user.name in group :
+                chan.members.append(user.id)
+        
+        self.channels.append(chan)
+
+        self.save()
+        menu()
+    
+    def add_member_to_group(self):
+
+        print('Channels :')
+        for channel in self.channels:
+            id_channel = channel.id 
+            group_name = channel.name
+            print(f'{id_channel}. {group_name}')
+
+        name_channel = input('Channel name :')
+        name_user = input('Add :')
+        id_user = None
+
+        for user in self.users:
+            if user.name == name_user:
+                id_user = user.id
+        
+        for channel in self.channels:
+            if channel.name == name_channel:
+                channel.members.append(id_user)
+
+        self.save()
+        menu()
+
 
     def save(self):
-        with open('serverdata.json', 'w') as file:
+        with open(args.server, 'w') as file:
             json.dump(self.class_to_dict(), file, indent = 4)
 
     def class_to_dict(self):
@@ -90,7 +150,7 @@ def serverdata(fichier):
         
     return server
 
-server = serverdata('serverdata.json')
+server = serverdata(args.server)
 
 
 
@@ -109,7 +169,7 @@ def users(serv: Server):
 
     choice = input('Select an option : ')
     if choice == 'u':
-        newu(server)
+        serv.newu()
     elif choice == 'm':
         menu()
     else:
@@ -127,15 +187,18 @@ def channels(serv: Server):
         print(f'{id}. {name}')
 
     print('')
+    print('a. Add a member to a channel')
     print('c. Create channel')
     print('m. Main menu')
     print('')
 
     choice = input('Select an option : ')
     if choice == 'c':
-        newc(serv)
+        serv.newc()
     elif choice == 'm':
         menu()
+    elif choice == 'a':
+        serv.add_member_to_group()
     else:
         print('Unknown option:', choice)
         menu()
@@ -152,7 +215,6 @@ def messages(serv: Server):
         group_name = channel.name
         list_id.append(id)
         print(f'{id}. {group_name}')
-    print('')
 
     print('m. Main menu')
     print('')
@@ -167,29 +229,7 @@ def messages(serv: Server):
         message_to_group(int(choice), serv)
 
 
-def newu(serv: Server):
-    nom = input('Nom :')
-    serv.users.append(User(len(serv.users) + 1, nom))
 
-    serv.save()
-    menu()
-
-
-def newc(serv: Server):
-    nom = input('Group name :')
-    chan = Channel(len(serv.channels) + 1, nom, [])
-
-    membres = input('New members :')
-    groupe = [user.strip() for user in membres.split(',')]
-
-    for user in serv.users:
-        if user.name in groupe :
-            chan.members.append(user.id)
-    
-    serv.channels.append(chan)
-
-    serv.save()
-    menu()
 
 def message_to_group(channel_id: int, serv: Server):
     name = ''
