@@ -19,38 +19,38 @@ class Client:
             print('Bye!')
             return
         elif choice == '1':
-            return self.fonction_users(self.server)
+            return self.fonction_users()
         elif choice == '2':
-            return self.fonction_channels(self.server)
+            return self.fonction_channels()
         elif choice == '3':
-            return self.fonction_messages(self.server)
+            return self.fonction_messages()
         else:
             print('Unknown option:', choice)
             return self.menu()
     
-    def message_to_group(self, channel_id: int, serv : Server):
+    def message_to_group(self, channel_id: int):
         name = ''
-        for channel in serv.channels:
+        for channel in self.server.channels:
             if channel.id == id:
                 name = channel.name
         print(f'{name}')
         new_message = input('New message :')
-        message_id = len(serv.messages) + 1
+        message_id = len(self.server.messages) + 1
         sender_id = 1
         message = Messages(message_id, '2024-12-12', sender_id, channel_id, new_message)
-        serv.messages.append(message)
+        self.server.messages.append(message)
 
-        serv.save()
+        self.server.save()
         self.menu()
 
-    def fonction_messages(self, serv : Server):
+    def fonction_messages(self):
         print('Conversations')
         print('.............')
         print('')
         list_id = []
 
         print('Groups :')
-        for channel in serv.channels:
+        for channel in self.server.channels:
             id = channel.id 
             group_name = channel.name
             list_id.append(id)
@@ -66,14 +66,14 @@ class Client:
             print('Unknown option:', choice)
             self.menu()
         else:
-            self.message_to_group(int(choice), serv)
+            self.message_to_group(int(choice))
 
-    def fonction_channels(self, serv : Server):
+    def fonction_channels(self):
         print('Channels list')
         print('-------------')
         print('')
 
-        for channel in serv.channels:
+        for channel in self.server.channels:
             id = channel.id
             name = channel.name
             print(f'{id}. {name}')
@@ -86,21 +86,21 @@ class Client:
 
         choice = input('Select an option : ')
         if choice == 'c':
-            self.newc(serv)
+            self.newc()
         elif choice == 'm':
-            self.menu(serv)
+            self.menu()
         elif choice == 'a':
-            self.add_member_to_group(serv)
+            self.add_member_to_group()
         else:
             print('Unknown option:', choice)
             self.menu()
     
-    def fonction_users(self, serv : Server):
+    def fonction_users(self):
         print('User list')
         print('---------')
         print('')
 
-        for user in serv.users:
+        for user in self.server.users:
             print(f'{user.id}. {user.name}')
 
         print('')
@@ -110,17 +110,17 @@ class Client:
 
         choice = input('Select an option : ')
         if choice == 'u':
-            self.newu(serv)
+            self.newu()
         elif choice == 'm':
             self.menu()
         else:
             print('Unknown option:', choice)
             self.menu()
 
-    def add_member_to_group(self, serv : Server):
+    def add_member_to_group(self):
 
         print('Channels :')
-        for channel in serv.channels:
+        for channel in self.server.channels:
             id_channel = channel.id 
             group_name = channel.name
             print(f'{id_channel}. {group_name}')
@@ -129,36 +129,36 @@ class Client:
         name_user = input('Add :')
         id_user = None
 
-        for user in serv.users:
+        for user in self.server.users:
             if user.name == name_user:
                 id_user = user.id
         
-        for channel in serv.channels:
+        for channel in self.server.channels:
             if channel.name == name_channel:
                 channel.members.append(id_user)
 
-        serv.save()
+        self.server.save()
         self.menu()
     
-    def newu(self, serv : Server):
+    def newu(self):
         name = input('Name :')
-        serv.users.append(User(len(serv.users) + 1, name))
+        self.server.users.append(User(len(self.server.users) + 1, name))
 
-        serv.save()
+        self.server.save()
         self.menu()
 
-    def newc(self, serv : Server):
+    def newc(self):
         name = input('Channel name :')
-        chan = Channel(len(serv.channels) + 1, name, [])
+        chan = Channel(len(self.server.channels) + 1, name, [])
 
         members = input('New members :')
         group = [user.strip() for user in members.split(',')]
 
-        for user in serv.users:
+        for user in self.server.users:
             if user.name in group :
                 chan.members.append(user.id)
         
-        serv.channels.append(chan)
+        self.server.channels.append(chan)
 
-        serv.save()
+        self.server.save()
         self.menu()
