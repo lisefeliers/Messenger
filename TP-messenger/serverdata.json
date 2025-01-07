@@ -47,6 +47,14 @@
         {
             "id": 12,
             "name": "Titouan"
+        },
+        {
+            "id": 13,
+            "name": "Papa"
+        },
+        {
+            "id": 14,
+            "name": "Maman"
         }
     ],
     "channels": [
@@ -109,6 +117,13 @@
             "sender_id": 1,
             "channel": 2,
             "content": "On mange quoi?"
+        },
+        {
+            "id": 4,
+            "reception_date": "2024-12-12",
+            "sender_id": 1,
+            "channel": 1,
+            "content": "Hello"
         }
     ]
 }
