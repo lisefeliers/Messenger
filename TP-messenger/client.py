@@ -1,8 +1,8 @@
 from model import User, Messages, Channel
-from server import Server
+from server import LocalServer, RemoteServer
 
 class Client:
-    def __init__(self, server : Server):
+    def __init__(self, server : LocalServer| RemoteServer):
         self.server = server
     
     def menu(self):
@@ -100,7 +100,7 @@ class Client:
         print('---------')
         print('')
 
-        for user in self.server.users:
+        for user in self.server.get_users():
             print(f'{user.id}. {user.name}')
 
         print('')
@@ -129,7 +129,7 @@ class Client:
         name_user = input('Add :')
         id_user = None
 
-        for user in self.server.users:
+        for user in self.server.get_users():
             if user.name == name_user:
                 id_user = user.id
         
@@ -142,7 +142,7 @@ class Client:
     
     def newu(self):
         name = input('Name :')
-        self.server.users.append(User(len(self.server.users) + 1, name))
+        self.server.get_users().append(User(len(self.server.users) + 1, name))
 
         self.server.save()
         self.menu()
@@ -154,7 +154,7 @@ class Client:
         members = input('New members :')
         group = [user.strip() for user in members.split(',')]
 
-        for user in self.server.users:
+        for user in self.server.get_users():
             if user.name in group :
                 chan.members.append(user.id)
         

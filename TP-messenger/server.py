@@ -1,12 +1,14 @@
 import json
 import argparse
+import requests
 from model import User, Messages, Channel
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--server', '-s', help = 'enter json path')
+parser.add_argument('-u', '--url')
 args = parser.parse_args()
 
-class Server:
+class LocalServer:
     def __init__(self, users: list[User], channels: list[Channel], messages: list[Messages]):
         self.users = users
         self.channels = channels
@@ -34,6 +36,9 @@ class Server:
         
         return server
     
+    def get_users(self):
+        return self.users
+    
     @classmethod
     def serverdata(cls, fichier):
         with open(fichier) as file:
@@ -52,3 +57,14 @@ class Server:
                             mess['channel'], mess['content']))
             
         return server
+
+class RemoteServer:
+    def __init__(self, url):
+        self.url = url
+    
+    def get_users(self):
+        content = requests.get(f'{self.url}/users')
+        users = []
+        for user in content.json(): 
+            users.append(User(user['id'], user['name'])) 
+        return users
