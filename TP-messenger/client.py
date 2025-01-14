@@ -156,7 +156,5 @@ class Client:
             if user.name in group :
                 chan.members.append(user.id)
         
-        self.server.get_channels().append(chan)
-
-        self.server.save()
+        self.server.add_channel(chan)
         self.menu()
