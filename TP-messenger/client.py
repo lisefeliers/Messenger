@@ -30,7 +30,7 @@ class Client:
     
     def message_to_group(self, channel_id: int):
         name = ''
-        for channel in self.server.channels:
+        for channel in self.server.get_channels():
             if channel.id == id:
                 name = channel.name
         print(f'{name}')
@@ -50,7 +50,7 @@ class Client:
         list_id = []
 
         print('Groups :')
-        for channel in self.server.channels:
+        for channel in self.server.get_channels():
             id = channel.id 
             group_name = channel.name
             list_id.append(id)
@@ -73,7 +73,7 @@ class Client:
         print('-------------')
         print('')
 
-        for channel in self.server.channels:
+        for channel in self.server.get_channels():
             id = channel.id
             name = channel.name
             print(f'{id}. {name}')
@@ -120,7 +120,7 @@ class Client:
     def add_member_to_group(self):
 
         print('Channels :')
-        for channel in self.server.channels:
+        for channel in self.server.get_channels():
             id_channel = channel.id 
             group_name = channel.name
             print(f'{id_channel}. {group_name}')
@@ -133,7 +133,7 @@ class Client:
             if user.name == name_user:
                 id_user = user.id
         
-        for channel in self.server.channels:
+        for channel in self.server.get_channels():
             if channel.name == name_channel:
                 channel.members.append(id_user)
 
@@ -147,7 +147,7 @@ class Client:
 
     def newc(self):
         name = input('Channel name :')
-        chan = Channel(len(self.server.channels) + 1, name, [])
+        chan = Channel(len(self.server.get_channels()) + 1, name, [])
 
         members = input('New members :')
         group = [user.strip() for user in members.split(',')]
@@ -156,7 +156,7 @@ class Client:
             if user.name in group :
                 chan.members.append(user.id)
         
-        self.server.channels.append(chan)
+        self.server.get_channels().append(chan)
 
         self.server.save()
         self.menu()

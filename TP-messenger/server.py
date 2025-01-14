@@ -80,8 +80,9 @@ class RemoteServer:
         response = requests.post(f'{self.url}/users/create', json = {"name" : name})
         print(response.status_code, response.text)
     
-    # def get_channels(self):
-    #     content = requests.get(f'{self.url}/channels')
-    #     channels = []
-    #     for channel in content.json():
-    #         channels.append(Channel())
+    def get_channels(self):
+        content = requests.get(f'{self.url}/channels')
+        channels = []
+        for channel in content.json():
+            channels.append(Channel(channel['id'], channel['name'], []))
+        return channels
