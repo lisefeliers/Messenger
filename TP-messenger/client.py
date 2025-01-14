@@ -35,10 +35,10 @@ class Client:
                 name = channel.name
         print(f'{name}')
         new_message = input('New message :')
-        message_id = len(self.server.messages) + 1
+        message_id = len(self.server.get_messages()) + 1
         sender_id = 1
         message = Messages(message_id, '2024-12-12', sender_id, channel_id, new_message)
-        self.server.messages.append(message)
+        self.server.get_messages().append(message)
 
         self.server.save()
         self.menu()
