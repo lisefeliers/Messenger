@@ -142,9 +142,7 @@ class Client:
     
     def newu(self):
         name = input('Name :')
-        self.server.get_users().append(User(len(self.server.users) + 1, name))
-
-        self.server.save()
+        self.server.add_user(name)
         self.menu()
 
     def newc(self):

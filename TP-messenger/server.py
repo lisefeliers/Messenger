@@ -39,6 +39,13 @@ class LocalServer:
     def get_users(self):
         return self.users
     
+    def get_channels(self):
+        return self.channels
+    
+    def add_user(self, name):
+        self.get_users().append(User(len(self.get_users()) + 1, name))
+        self.save()
+    
     @classmethod
     def serverdata(cls, fichier):
         with open(fichier) as file:
@@ -68,3 +75,13 @@ class RemoteServer:
         for user in content.json(): 
             users.append(User(user['id'], user['name'])) 
         return users
+    
+    def add_user(self, name):
+        response = requests.post(f'{self.url}/users/create', json = {"name" : name})
+        print(response.status_code, response.text)
+    
+    # def get_channels(self):
+    #     content = requests.get(f'{self.url}/channels')
+    #     channels = []
+    #     for channel in content.json():
+    #         channels.append(Channel())
