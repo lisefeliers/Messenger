@@ -53,6 +53,10 @@ class LocalServer:
         self.get_channels().append(chan)
         self.save()
     
+    def send_message(self, message):
+        self.get_messages().append(message)
+        self.save()
+
     @classmethod
     def serverdata(cls, fichier):
         with open(fichier) as file:
@@ -105,3 +109,8 @@ class RemoteServer:
             messages.append(Messages(message['id'], message['reception_date'], message['sender_id'], 
                                      message['channel_id'], message['content']))
         return messages
+    
+    def send_message(self, message : Messages):
+        response = requests.post(f'{self.url}/channels/{message.channel}/messages/post', json = 
+                                 {"sender_id" : 14, "content" : message.content})
+        print(response.status_code, response.text)

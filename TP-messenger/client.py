@@ -31,16 +31,15 @@ class Client:
     def message_to_group(self, channel_id: int):
         name = ''
         for channel in self.server.get_channels():
-            if channel.id == id:
+            if channel.id == channel_id:
                 name = channel.name
         print(f'{name}')
         new_message = input('New message :')
         message_id = len(self.server.get_messages()) + 1
         sender_id = 1
         message = Messages(message_id, '2024-12-12', sender_id, channel_id, new_message)
-        self.server.get_messages().append(message)
-
-        self.server.save()
+        
+        self.server.send_message(message)
         self.menu()
 
     def fonction_messages(self):
