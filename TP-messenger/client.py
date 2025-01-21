@@ -68,7 +68,7 @@ class Client:
             self.message_to_group(int(choice))
 
     def fonction_channels(self):
-        print('Channels list')
+        print('Channels')
         print('-------------')
         print('')
 
@@ -79,6 +79,7 @@ class Client:
 
         print('')
         print('a. Add a member to a channel')
+        print('d. Details channel')
         print('c. Create channel')
         print('m. Main menu')
         print('')
@@ -90,6 +91,8 @@ class Client:
             self.menu()
         elif choice == 'a':
             self.add_member_to_group()
+        elif choice == 'd':
+            self.detail()
         else:
             print('Unknown option:', choice)
             self.menu()
@@ -135,6 +138,17 @@ class Client:
         self.server.add_member(id_channel, id_user)
         self.menu()
     
+    # def detail(self):
+    #     print('Channels :')
+    #     for channel in self.server.get_channels():
+    #         id_channel = channel.id 
+    #         group_name = channel.name
+    #         print(f'{id_channel}. {group_name}')
+        
+    #     id_channel = input('Channel :')
+        
+    #     self.server.print_details(id_channel)
+        
     def newu(self):
         name = input('Name :')
         self.server.add_user(name)

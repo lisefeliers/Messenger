@@ -63,6 +63,25 @@ class LocalServer:
                 channel.members.append(id_user)
 
         self.save()
+    
+    # def print_details(self, id_channel):
+    #     print('Membres :')
+    #     for channel in self.channels : 
+    #         if channel.id == id_channel :
+    #             for id_user in channel.members :
+    #                 for user in self.users :
+    #                     if user.id == id_user :
+    #                         print(f'{user.id}. {user.name}')
+
+    #     print('')
+    #     print('Messages :')
+    #     for message in self.messages :
+    #         if message.channel == id_channel :
+    #             for user in self.users :
+    #                 if message.sender_id == user.id :
+    #                     print(f'{user.name} : {message.content}')
+        
+    #     print('m. Main menu')
 
     @classmethod
     def serverdata(cls, fichier):
