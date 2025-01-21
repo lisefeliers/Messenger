@@ -124,7 +124,7 @@ class Client:
             group_name = channel.name
             print(f'{id_channel}. {group_name}')
 
-        name_channel = input('Channel name :')
+        id_channel = input('Channel :')
         name_user = input('Add :')
         id_user = None
 
@@ -132,11 +132,7 @@ class Client:
             if user.name == name_user:
                 id_user = user.id
         
-        for channel in self.server.get_channels():
-            if channel.name == name_channel:
-                channel.members.append(id_user)
-
-        self.server.save()
+        self.server.add_member(id_channel, id_user)
         self.menu()
     
     def newu(self):

@@ -1,0 +1,65 @@
+format: jb-book
+root: 0-00-intro-nb
+parts:
+- caption: numpy
+  # do not mention 1-99 in this output
+  chapters:
+  - file: 1-01-numpy-introduction-nb.py
+  - file: 1-02-numpy-array-nb.py
+  - file: 1-03-numpy-memory-nb.py
+  - file: 1-04-numpy-vectorization-nb.py
+  - file: 1-05-numpy-indexing-slicing-nb.py
+  - file: 1-06-imported-images1-nb.md
+    title: TP images (1/2)
+  # - url: https://flotpython-exos-ds.readthedocs.io/en/main/numpy-tps/images/README-images1-nb.html
+  - file: 1-07-numpy-aggregate-nb.py
+  - file: 1-08-numpy-broadcast-nb.py
+  - file: 1-09-numpy-array-testing-nb.py
+  - file: 1-10-imported-images2-nb.md
+    title: TP images (2/2)
+  # - url: https://flotpython-exos-ds.readthedocs.io/en/main/numpy-tps/images/README-images2-nb.html
+  - file: 1-11-numpy-TP-dices-advanced-nb.py
+  - file: 1-12-imported-sounds-nb.md
+    title: TP sons
+  # - url: https://flotpython-exos-ds.readthedocs.io/en/main/numpy-tps/sounds/README-sounds-nb.html
+  - file: 1-13-numpy-linalg-optional-nb.py
+  - file: 1-14-numpy-optional-indexing-nb.py
+- caption: pandas
+  chapters:
+  - file: 2-01-pandas-read-csv-nb.py
+  - file: 2-02-pandas-condition-nb.py
+  - file: 2-03-pandas-indexing-slicing-nb.py
+  - file: 2-04-pandas-TP-drop-cast-access-str-nb.py
+  - file: 2-05-pandas-TP-sorting-nb.py
+  - file: 2-06-pandas-matplotlib-nb.py
+  - file: 2-07-pandas-group-by-nb.py
+  - file: 2-08-pandas-create-dataframe-nb.py
+  - file: 2-09-pandas-merge-concat-nb.py
+  - file: 2-09-imported-collages-nb.md
+    title: TP collages
+  # - url: https://flotpython-exos-ds.readthedocs.io/en/main/pandas-tps/collages/README-collages-nb.html
+  - file: 2-10-timeseries-nb.py
+  - file: 2-11-imported-fremont-bridge-nb.md
+    title: "HOWTO: timeseries (les vélos)"
+  # - url: https://flotpython-exos-ds.readthedocs.io/en/main/pandas-howtos/fremont-bridge/HOWTO-fremont-bridge-nb.html
+  - file: 2-12-imported-covid-nb.py
+    title: TP Covid
+  # - url: https://flotpython-exos-ds.readthedocs.io/en/main/pandas-tps/covid/README-covid-nb.html
+    # double check after dedup on the exos side
+  - file: 2-13-imported-addresses-nb.md
+    title: TP géoloc addresses
+  # - url: https://flotpython-exos-ds.readthedocs.io/en/main/geo-tps/addresses/README-addresses-nb.html
+- caption: visualisation
+  chapters:
+  - glob: 3-[0-9]*-nb
+- caption: cheatsheets
+  chapters:
+  - glob: 4-*-nb
+- caption: rappels Python
+  # keep 5-99 out
+  chapters:
+  - glob: 5-[0-8]*-nb
+# no longer relevant
+# - caption: petit test Python
+#   chapters:
+#   - glob: "notebooks/9-[0-9]*.py"

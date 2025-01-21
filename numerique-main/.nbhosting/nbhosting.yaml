@@ -1,0 +1,52 @@
+# the course structure under nbhosting
+tracks:
+- name: Python numérique
+  description: calcul scientifique et data en Python
+  id: python-num
+  sections:
+  - name: numpy
+    notebooks:
+    - notebooks/1-01-numpy-introduction-nb
+    - notebooks/1-02-numpy-array-nb
+    - notebooks/1-03-numpy-memory-nb
+    - notebooks/1-04-numpy-vectorization-nb
+    - notebooks/1-05-numpy-indexing-slicing-nb
+    - notebooks/1-07-numpy-aggregate-nb
+    - notebooks/1-08-numpy-broadcast-nb
+    - notebooks/1-09-numpy-array-testing-nb
+    - notebooks/1-11-numpy-TP-dices-advanced-nb
+    - notebooks/1-13-numpy-linalg-optional-nb
+    - notebooks/1-14-numpy-optional-indexing-nb
+  - name: pandas
+    notebooks:
+    - notebooks/2-01-pandas-read-csv-nb
+    - notebooks/2-02-pandas-condition-nb
+    - notebooks/2-03-pandas-indexing-slicing-nb
+    - notebooks/2-04-pandas-TP-drop-cast-access-str-nb
+    - notebooks/2-05-pandas-TP-sorting-nb
+    - notebooks/2-06-pandas-matplotlib-nb
+    - notebooks/2-07-pandas-group-by-nb
+    - notebooks/2-08-pandas-create-dataframe-nb
+    - notebooks/2-10-timeseries-nb
+  - name: visualisation
+    notebooks:
+    - notebooks/3-[0-9]*-nb
+  - name: cheatsheets
+    notebooks:
+    - notebooks/4-*-nb
+  - name: rappels Python
+    notebooks:
+    - notebooks/5-[0-8]*-nb
+builds:
+- id: handouts
+  name: numpy, pandas, mpl
+  description: HTML statique et cherchable
+  directory: notebooks
+  script: |
+    pip install jupyter-book
+    pip install sphinx-exercise
+    jupyter-book build .
+  external_url: https://ue12-p24-numerique.readthedocs.io/
+
+# no mapping needed
+static-mappings: []

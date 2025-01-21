@@ -57,6 +57,13 @@ class LocalServer:
         self.get_messages().append(message)
         self.save()
 
+    def add_member(self, id_channel, id_user) : 
+        for channel in self.get_channels():
+            if channel.id == id_channel:
+                channel.members.append(id_user)
+
+        self.save()
+
     @classmethod
     def serverdata(cls, fichier):
         with open(fichier) as file:
@@ -113,4 +120,8 @@ class RemoteServer:
     def send_message(self, message : Messages):
         response = requests.post(f'{self.url}/channels/{message.channel}/messages/post', json = 
                                  {"sender_id" : 14, "content" : message.content})
+        print(response.status_code, response.text)
+    
+    def add_member(self, id_channel, id_user):
+        response = requests.post(f'{self.url}/channels/{id_channel}/join', json =  {"user_id" : id_user})
         print(response.status_code, response.text)
