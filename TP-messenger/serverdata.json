@@ -63,7 +63,8 @@
             "name": "Town square",
             "member_ids": [
                 1,
-                2
+                2,
+                8
             ]
         },
         {
