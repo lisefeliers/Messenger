@@ -1,4 +1,4 @@
-from model import User, Messages, Channel
+from model import  Messages, Channel
 from server import LocalServer, RemoteServer
 
 class Client:
