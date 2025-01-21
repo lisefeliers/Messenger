@@ -1,5 +1,4 @@
 import argparse
-import requests 
 from server import LocalServer, RemoteServer
 from client import Client
 
@@ -19,8 +18,3 @@ else :
 
 client = Client(server)
 client.menu() 
-
-
-# server = Server.serverdata(args.server)
-# client = Client(server)
-# client.menu()
