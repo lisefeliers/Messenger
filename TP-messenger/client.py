@@ -1,4 +1,3 @@
-from model import  Messages, Channel
 from server import LocalServer, RemoteServer
 
 class Client:
@@ -28,24 +27,30 @@ class Client:
             print('Unknown option:', choice)
             return self.menu()
     
-    def message_to_group(self, channel_id: int):
+    def message_to_group(self, channel_id: int) -> None:
+        # Plutôt que de stocker les id et name séparément,
+        # vous auriez pu prendre un objet `Channel` en paramètre.
         name = ''
         for channel in self.server.get_channels():
             if channel.id == channel_id:
                 name = channel.name
         print(f'{name}')
         new_message = input('New message :')
-        message_id = len(self.server.get_messages()) + 1
-        sender_id = 1
-        message = Messages(message_id, '2024-12-12', sender_id, channel_id, new_message)
-        
-        self.server.send_message(message)
+        sender_id = 1 # Vous pouvez aussi demander à l'utilisateur
+                      # quel est son nom ou son id
+
+        self.server.send_message(sender_id, channel_id, new_message)
         self.menu()
 
     def fonction_messages(self):
         print('Conversations')
         print('.............')
         print('')
+        # Il vaut mieux utiliser un nom qui désigne ce qui est représenté
+        # plutôt que comment c'est représenté.
+        # Par exemple `channel_ids` est plus informatif que `list_id`.
+        # Le fait que cette variable soit une liste sera toujours
+        # indiqué par son type, visible dans l'IDE à tout moment.
         list_id = []
 
         print('Groups :')
@@ -61,7 +66,10 @@ class Client:
         choice = input('Select an option :')
         if choice == 'm':
             self.menu()
-        elif int(choice) > max(list_id):
+        # Il vaut mieux vérifier la présence de `choice` dans la liste,
+        # car rien ne vous assure qu'une liste contient tous les ids
+        # entre 1 et son max.
+        elif choice not in list_id:
             print('Unknown option:', choice)
             self.menu()
         else:
@@ -119,7 +127,7 @@ class Client:
             print('Unknown option:', choice)
             self.menu()
 
-    def add_member_to_group(self):
+    def add_member_to_group(self) -> None:
 
         print('Channels :')
         for channel in self.server.get_channels():
@@ -127,14 +135,16 @@ class Client:
             group_name = channel.name
             print(f'{id_channel}. {group_name}')
 
-        id_channel = input('Channel :')
+        id_channel = int(input('Channel :'))
         name_user = input('Add :')
         id_user = None
 
         for user in self.server.get_users():
             if user.name == name_user:
                 id_user = user.id
-        
+        # N'oubliez pas de vérifier que `id_user is not None`,
+        # l'utilisateur a pu se tromper
+
         self.server.add_member(id_channel, id_user)
         self.menu()
     
@@ -149,21 +159,25 @@ class Client:
         
     #     self.server.print_details(id_channel)
         
+    # Il vaut mieux éviter d'utiliser des abréviations comme "u",
+    # car vous perdez beaucoup plus en lisibilité que
+    # ce que vous avez économisé en temps d'écriture
     def newu(self):
         name = input('Name :')
         self.server.add_user(name)
         self.menu()
 
-    def newc(self):
+    def newc(self) -> None:
         name = input('Channel name :')
-        chan = Channel(len(self.server.get_channels()) + 1, name, [])
+        # C'est du ressort du serveur de créer l'objet `Channel`,
+        # notamment car c'est lui qui décide comment gérer l'id.
+        chan = self.server.add_channel(name)
 
         members = input('New members :')
         group = [user.strip() for user in members.split(',')]
 
         for user in self.server.get_users():
             if user.name in group :
-                chan.members.append(user.id)
-        
-        self.server.add_channel(chan)
+                self.server.add_member(chan.id, user.id)
+
         self.menu()
